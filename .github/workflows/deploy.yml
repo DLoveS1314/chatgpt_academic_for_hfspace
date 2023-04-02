@@ -1,0 +1,60 @@
+name: Space Deploy
+
+permissions:
+  contents: write
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  space_deploy:
+    name: Space Deploy
+    runs-on: ${{ matrix.os }}
+    env:
+      HF_USERNAME: ${{ secrets.HF_USERNAME }}
+      HF_PASSWORD: ${{ secrets.HF_PASSWORD }}
+      HF_SPACE_REPO: ${{ secrets.HF_SPACE_REPO }}
+      HF_EMAIL: ${{ secrets.HF_EMAIL }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - 'ubuntu-latest'
+        python-version:
+          - '3.8'
+
+    steps:
+      - name: Install Git LFS
+        shell: bash
+        run: |
+          sudo apt-get install -y git-lfs
+          git lfs install
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          path: github_repo
+      - name: Prepare the repository
+        shell: bash
+        run: |
+          git clone https://${HF_USERNAME}:${HF_PASSWORD}@huggingface.co/spaces/${HF_SPACE_REPO} hf_space_repo
+      - name: See what is in this path
+        shell: bash
+        run: |
+          sudo apt-get install -y tree
+          tree github_repo
+          tree hf_space_repo
+      - name: Push models to hugging face repository
+        shell: bash
+        run: |
+          cp -rf github_repo/* hf_space_repo
+          cp -rf github_repo/.gitignore hf_space_repo
+          cp -rf github_repo/.gitattributes hf_space_repo
+          cd hf_space_repo
+          tree .
+          git lfs install
+          git config user.name "${HF_USERNAME}"
+          git config user.email "${HF_EMAIL}"
+          git add -A
+          git diff-index --quiet HEAD || git commit -a -m "dev(${HF_USERNAME}): project sync $(date -R)"
+          git push

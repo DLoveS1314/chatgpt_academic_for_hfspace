@@ -1,5 +1,8 @@
+import os
+
 # [step 1]>> 例如： API_KEY = "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" （此key无效）
-API_KEY = "sk-此处填API密钥"
+# Put your own API_KEY into `OPENAI_API_KEY` environment.
+API_KEY = os.environ.get('OPENAI_API_KEY')
 
 # [step 2]>> 改为True应用代理，如果直接在海外服务器部署，此处不修改
 USE_PROXY = False
@@ -11,14 +14,13 @@ if USE_PROXY:
     # [端口] 在代理软件的设置里找。虽然不同的代理软件界面不一样，但端口号都应该在最显眼的位置上
 
     # 代理网络的地址，打开你的科学上网软件查看代理的协议(socks5/http)、地址(localhost)和端口(11284)
-    proxies = { 
+    proxies = {
         #          [协议]://  [地址]  :[端口]
-        "http":  "socks5h://localhost:11284", 
-        "https": "socks5h://localhost:11284", 
+        "http": "socks5h://localhost:11284",
+        "https": "socks5h://localhost:11284",
     }
 else:
     proxies = None
-
 
 # [step 3]>> 以下配置可以优化体验，但大部分场合下并不需要修改
 # 对话窗的高度
@@ -28,7 +30,7 @@ CHATBOT_HEIGHT = 1116
 TIMEOUT_SECONDS = 25
 
 # 网页的端口, -1代表随机端口
-WEB_PORT = -1
+WEB_PORT = 7860
 
 # 如果OpenAI不响应（网络卡顿、代理失败、KEY失效），重试的次数限制
 MAX_RETRY = 2
@@ -43,4 +45,4 @@ API_URL = "https://api.openai.com/v1/chat/completions"
 CONCURRENT_COUNT = 100
 
 # 设置用户名和密码
-AUTHENTICATION = [] # [("username", "password"), ("username2", "password2"), ...]
+AUTHENTICATION = []  # [("username", "password"), ("username2", "password2"), ...]

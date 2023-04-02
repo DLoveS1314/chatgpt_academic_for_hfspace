@@ -1,6 +1,30 @@
+---
+title: ChatGPTForAcademic
+emoji: 📑
+colorFrom: gray
+colorTo: red
+sdk: gradio
+sdk_version: 3.23.0
+app_file: main.py
+pinned: false
+license: gpl-3.0
+---
 
 
 # ChatGPT 学术优化
+
+This project is based on [binary-husky/chatgpt_academic](https://github.com/binary-husky/chatgpt_academic), which is
+**specially provided for personal deployed huggingface space**. My own space
+is deployed on [HansBug/ChatGPTForAcadamic](https://huggingface.co/spaces/HansBug/ChatGPTForAcadamic).
+
+You need to put these secrets into your github fork repo:
+* `HF_USERNAME`: Username of your huggingface account, `hansbug` for me.
+* `HF_PASSWORD`: Password of your huggingface account.
+* `HF_SPACE_REPO`: Your space repo on huggingface, `HansBug/ChatGPTForAcadamic` for me.
+* `HF_EMAIL`: Your email when create commit to huggingface.
+
+You need to put these secrets into your huggingface space repo:
+* `OPENAI_API_KEY`: Your api key of openai.
 
 **如果喜欢这个项目，请给它一个Star；如果你发明了更好用的学术快捷键，欢迎发issue或者pull requests（dev分支）**
 
