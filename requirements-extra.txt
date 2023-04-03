@@ -1,0 +1,4 @@
+pdfminer
+beautifulsoup4
+pymupdf
+python-docx

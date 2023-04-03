@@ -50,6 +50,7 @@ jobs:
           cp -rf github_repo/* hf_space_repo
           cp -rf github_repo/.gitignore hf_space_repo
           cp -rf github_repo/.gitattributes hf_space_repo
+          cat github_repo/requirements-extra.txt >> hf_space_repo/requirements.txt
           cd hf_space_repo
           tree .
           git lfs install
